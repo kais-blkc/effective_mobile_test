@@ -1,0 +1,22 @@
+<div class="task-list-header">
+	<h1>Список задач</h1>
+	<button mat-flat-button color="primary" (click)="onAddTask()">Добавить задачу +</button>
+</div>
+
+<div class="task-list">
+	<mat-list>
+		@for (item of (tasks$ | async); track $index) {
+		<mat-list-item>
+			<tasks-item
+				[task]="item"
+				(setValue)="onSetValue($event)"
+				(addTask)="onAddTask()"
+				(removeTask)="onRemoveTask($event)"
+			></tasks-item>
+		</mat-list-item>
+
+		@if (!$last) {
+		<mat-divider></mat-divider>
+		} }
+	</mat-list>
+</div>

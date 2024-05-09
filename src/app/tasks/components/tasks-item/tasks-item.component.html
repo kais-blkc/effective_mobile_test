@@ -1,0 +1,15 @@
+<div class="tasks-item">
+	<div class="task-id">
+		{{ task.id }}
+	</div>
+	<div class="task-title">
+		<input
+			type="text"
+			[(ngModel)]="task.title"
+			(keyup.enter)="task.title.length ? addTask.emit(null) : ''"
+			(blur)="setValue.emit(task)"
+			#titleInput
+		/>
+		<!-- (keyup.backspace)="!task.title.length ? removeTask.emit(task.id) : ''" -->
+	</div>
+</div>
