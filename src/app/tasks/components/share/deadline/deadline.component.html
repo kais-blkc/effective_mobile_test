@@ -1,0 +1,7 @@
+<!-- <mat-calendar [selected]="selectedDate" (selectedChange)="onSelectDate($event)"> </mat-calendar> -->
+<mat-form-field>
+	<mat-label>Дата</mat-label>
+	<input matInput [matDatepicker]="dp3" disabled />
+	<mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+	<mat-datepicker #dp3 disabled="false"></mat-datepicker>
+</mat-form-field>

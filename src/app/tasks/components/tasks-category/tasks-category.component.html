@@ -1,0 +1,30 @@
+<mat-card class="tasks-category-item tci">
+	<mat-card-header class="tci__header">
+		<mat-card-title>
+			<input
+				type="text"
+				class="category-title"
+				[(ngModel)]="category.title"
+				(keyup.enter)="(category.title)"
+				(blur)="updateCategory.emit(category)"
+				#categoryInputRef
+			/>
+		</mat-card-title>
+
+		<app-delete-btn (click)="removeCategory.emit(category.id)"></app-delete-btn>
+	</mat-card-header>
+
+	<mat-card-content class="task-category">
+		@for (item of tasks$ | async; track $index) {
+			<p>
+				{{ item.title }}
+			</p>
+		}
+	</mat-card-content>
+
+	<mat-card-actions align="end">
+		<a [routerLink]="'tasks-category/' + category.id" mat-flat-button color="accent">
+			Перейти к проекту
+		</a>
+	</mat-card-actions>
+</mat-card>

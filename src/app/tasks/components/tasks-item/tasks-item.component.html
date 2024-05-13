@@ -1,15 +1,21 @@
 <div class="tasks-item">
-	<div class="task-id">
+	<div class="tasks-item__id">
 		{{ task.id }}
 	</div>
-	<div class="task-title">
+	<div class="tasks-item__title">
 		<input
 			type="text"
+			placeholder="Напишите название задачи"
 			[(ngModel)]="task.title"
-			(keyup.enter)="task.title.length ? addTask.emit(null) : ''"
+			(keyup.enter)="task.title.length ? addTask.emit() : ''"
 			(blur)="setValue.emit(task)"
 			#titleInput
 		/>
-		<!-- (keyup.backspace)="!task.title.length ? removeTask.emit(task.id) : ''" -->
 	</div>
+
+	<div class="deadline">
+		<app-deadline></app-deadline>
+	</div>
+
+	<app-delete-btn (click)="removeTask.emit(task.id)"></app-delete-btn>
 </div>

@@ -1,0 +1,16 @@
+<div class="list-header">
+	<h2>Проекты</h2>
+	<a mat-flat-button color="primary" (click)="onAddCategory()">Добавить проект +</a>
+</div>
+<div class="tasks-category-list">
+	@for (category of categories$ | async; track $index) {
+		<tasks-category
+			[category]="category"
+			(updateCategory)="onUpdateCategory($event)"
+			(removeCategory)="onRemoveCategory($event)"
+		>
+		</tasks-category>
+	} @empty {
+		<p>Пока что пусто, добавьте проект</p>
+	}
+</div>

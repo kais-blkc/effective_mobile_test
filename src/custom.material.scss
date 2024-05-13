@@ -1,0 +1,5 @@
+@use '@angular/material' as mat;
+
+.deadline input {
+	@include mat.input-density(-3);
+}
