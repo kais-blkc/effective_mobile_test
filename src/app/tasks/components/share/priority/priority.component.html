@@ -1,0 +1,13 @@
+<div class="priority">
+	<mat-form-field class="mat-select-{{ value }}">
+		<mat-label>Приоритет</mat-label>
+		<mat-select [(value)]="value" (selectionChange)="selected.emit(value)">
+			<mat-option>None</mat-option>
+			@for (item of priorities; track $index) {
+				<mat-option [value]="item.color" class="mat-option-{{ item.color }}">
+					{{ item.value }}
+				</mat-option>
+			}
+		</mat-select>
+	</mat-form-field>
+</div>

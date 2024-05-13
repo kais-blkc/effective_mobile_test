@@ -3,9 +3,9 @@ import { TaskInterface } from '../types/task.interface';
 import { Injectable } from '@angular/core';
 
 const placeholderTasks: TaskInterface[] = [
-	{ id: 0, title: 'one' },
-	{ id: 1, title: 'two' },
-	{ id: 2, title: 'three' },
+	{ id: 0, title: 'one', status: false },
+	{ id: 1, title: 'two', status: false },
+	{ id: 2, title: 'three', status: false },
 ];
 
 @Injectable({ providedIn: 'root' })

@@ -27,7 +27,7 @@ export class TasksListComponent implements OnInit {
 		this.getTasks();
 	}
 
-	getTasks() {
+	getTasks(): void {
 		if (this.categoryID) {
 			this.tasks$ = this.tasksService.tasks$.pipe(
 				map((tasks) => tasks.filter((task) => task.categoryID === this.categoryID)),
@@ -37,15 +37,15 @@ export class TasksListComponent implements OnInit {
 		}
 	}
 
-	onAddTask() {
-		this.tasksService.addTask({ id: 0, title: '', categoryID: this.categoryID });
+	onAddTask(): void {
+		this.tasksService.addTask({ id: 0, title: '', categoryID: this.categoryID, status: false });
 	}
 
-	onRemoveTask(taskId: number) {
+	onRemoveTask(taskId: number): void {
 		this.tasksService.removeTask(taskId);
 	}
 
-	onSetValue(task: TaskInterface) {
+	onSetValue(task: TaskInterface): void {
 		if (task.title.length) {
 			this.tasksService.updateTask(task);
 		} else {

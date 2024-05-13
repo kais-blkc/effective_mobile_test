@@ -1,8 +1,15 @@
-<div class="tasks-item">
-	<div class="tasks-item__id">
+<div class="tasks-item" [class.done]="task.status">
+	<!-- <div class="tasks-item__id">
 		{{ task.id }}
-	</div>
+	</div> -->
 	<div class="tasks-item__title">
+		<mat-checkbox
+			class="status-checkbox above-before-done"
+			[(ngModel)]="task.status"
+			(change)="setValue.emit(task)"
+			color="primary"
+		></mat-checkbox>
+
 		<input
 			type="text"
 			placeholder="Напишите название задачи"
@@ -13,9 +20,9 @@
 		/>
 	</div>
 
-	<div class="deadline">
-		<app-deadline></app-deadline>
-	</div>
+	<app-deadline [value]="this.task.deadline" (selected)="onDate($event)"></app-deadline>
 
-	<app-delete-btn (click)="removeTask.emit(task.id)"></app-delete-btn>
+	<app-priority [value]="this.task.priority" (selected)="onPriority($event)"></app-priority>
+
+	<app-delete-btn class="above-before-done" (click)="removeTask.emit(task.id)"></app-delete-btn>
 </div>

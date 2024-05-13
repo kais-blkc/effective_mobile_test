@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "effective_mobile_test": {
+      "i18n": {
+        "sourceLocale": "ru"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {

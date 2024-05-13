@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,12 +23,15 @@ import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
 	templateUrl: './deadline.component.html',
 	styleUrl: './deadline.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [],
 })
 export class DeadlineComponent {
-	public selectedDate: Date;
+	@Input() value: string | undefined;
+	@Output() selected: EventEmitter<string> = new EventEmitter<string>();
+	public date: string;
 
-	onSelectDate(date: Date) {
-		this.selectedDate = date;
-		console.log(date);
+	onResetDate() {
+		this.value = '';
+		this.selected.emit(this.value);
 	}
 }

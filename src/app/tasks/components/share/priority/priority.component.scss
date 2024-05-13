@@ -1,0 +1,19 @@
+.mat-mdc-option:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+	&.mat-option {
+		&-green {
+			background-color: #00800015;
+		}
+
+		&-yellow {
+			background-color: #ff000015;
+		}
+
+		&-red {
+			background-color: #ffff0015;
+		}
+
+		&-blue {
+			background-color: #0000ff15;
+		}
+	}
+}

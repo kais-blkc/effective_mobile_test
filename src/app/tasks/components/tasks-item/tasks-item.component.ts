@@ -5,7 +5,6 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
@@ -16,24 +15,46 @@ import { MatButtonModule } from '@angular/material/button';
 import { DeleteBtnComponent } from '../share/delete-btn/delete-btn.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { DeadlineComponent } from '../share/deadline/deadline.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PriorityComponent } from '../share/priority/priority.component';
 
 @Component({
 	selector: 'tasks-item',
 	standalone: true,
-	imports: [FormsModule, MatIconModule, MatButtonModule, DeleteBtnComponent, DeadlineComponent],
+	imports: [
+		FormsModule,
+		MatIconModule,
+		MatButtonModule,
+		MatInputModule,
+		MatFormFieldModule,
+		MatCheckboxModule,
+		DeleteBtnComponent,
+		DeadlineComponent,
+		PriorityComponent,
+	],
 	providers: [provideNativeDateAdapter()],
 	templateUrl: './tasks-item.component.html',
 	styleUrl: './tasks-item.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TasksItemComponent implements OnInit, AfterViewInit {
+export class TasksItemComponent implements AfterViewInit {
 	@Input() task: TaskInterface;
 	@Output() addTask: EventEmitter<void> = new EventEmitter<void>();
 	@Output() removeTask: EventEmitter<number> = new EventEmitter<number>();
 	@Output() setValue: EventEmitter<TaskInterface> = new EventEmitter<TaskInterface>();
 	@ViewChild('titleInput') titleInputRef: ElementRef;
 
-	ngOnInit(): void {}
+	onDate(date: string): void {
+		this.task.deadline = date;
+		this.setValue.emit(this.task);
+	}
+
+	onPriority(priority: string): void {
+		this.task.priority = priority;
+		this.setValue.emit(this.task);
+	}
 
 	ngAfterViewInit(): void {
 		if (!this.task.title.length) {

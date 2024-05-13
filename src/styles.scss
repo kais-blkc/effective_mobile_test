@@ -9,8 +9,15 @@
 }
 
 :root {
+	--bg-white-gray: #fafafa;
 	--bg-primary: #673ab710;
 	--bg-accent: #ffd74020;
+	--bg-: #ffd74020;
+
+	--bg-green-015: #00800015;
+	--bg-yellow-015: #ff000015;
+	--bg-red-015: #ffff0015;
+	--bg-blue-015: #0000ff15;
 }
 
 html,
@@ -45,7 +52,7 @@ body {
 	&:hover {
 		background: var(--bg-primary);
 
-		input {
+		.tasks-item__title input {
 			background: #fff !important;
 		}
 	}
@@ -65,4 +72,45 @@ body {
 
 app-delete-btn {
 	margin-left: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.app-icon {
+	color: #555;
+}
+
+.tasks-item {
+	.mat-mdc-form-field {
+		margin-bottom: -22px;
+		font-size: 12px;
+		width: 160px;
+	}
+	.mat-mdc-select {
+		font-size: inherit;
+	}
+}
+
+.mat-select {
+	&-green {
+		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+			background-color: var(--bg-green-015);
+		}
+	}
+	&-yellow {
+		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+			background-color: var(--bg-yellow-015);
+		}
+	}
+	&-red {
+		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+			background-color: var(--bg-red-015);
+		}
+	}
+	&-blue {
+		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+			background-color: var(--bg-blue-015);
+		}
+	}
 }

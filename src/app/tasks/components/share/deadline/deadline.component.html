@@ -1,7 +1,26 @@
-<!-- <mat-calendar [selected]="selectedDate" (selectedChange)="onSelectDate($event)"> </mat-calendar> -->
-<mat-form-field>
-	<mat-label>Дата</mat-label>
-	<input matInput [matDatepicker]="dp3" disabled />
-	<mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
-	<mat-datepicker #dp3 disabled="false"></mat-datepicker>
-</mat-form-field>
+<div class="deadline">
+	<mat-form-field>
+		<mat-label>Дедлайн</mat-label>
+		<input
+			#dataInput
+			matInput
+			[matDatepicker]="dp3"
+			(dateChange)="selected.emit(value)"
+			[(ngModel)]="value"
+			disabled
+		/>
+		<mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+		<mat-datepicker #dp3 disabled="false"></mat-datepicker>
+	</mat-form-field>
+
+	@if (this.value) {
+		<button class="btn btn-clear" (click)="onResetDate()">
+			<mat-icon
+				aria-hidden="false"
+				aria-label="Очистить"
+				fontIcon="close"
+				class="app-icon"
+			></mat-icon>
+		</button>
+	}
+</div>
