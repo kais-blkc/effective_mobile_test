@@ -7,11 +7,19 @@ import { TasksService } from '../../services/tasks.service';
 import { CommonModule } from '@angular/common';
 import { TasksItemComponent } from '../tasks-item/tasks-item.component';
 import { Observable, map } from 'rxjs';
+import { TasksFilterSortComponent } from '../tasks-filter-sort/tasks-filter-sort.component';
 
 @Component({
 	selector: 'tasks-list',
 	standalone: true,
-	imports: [MatDividerModule, MatListModule, MatButtonModule, CommonModule, TasksItemComponent],
+	imports: [
+		MatDividerModule,
+		MatListModule,
+		MatButtonModule,
+		CommonModule,
+		TasksItemComponent,
+		TasksFilterSortComponent,
+	],
 	providers: [TasksService],
 	templateUrl: './tasks-list.component.html',
 	styleUrl: './tasks-list.component.scss',
@@ -27,7 +35,12 @@ export class TasksListComponent implements OnInit {
 		this.getTasks();
 	}
 
+	// onTest() {
+	// 	this.tasks$ = this.tasks$.pipe(map((tasks) => tasks.filter((task) => task.status === false)));
+	// }
+
 	getTasks(): void {
+		// If this is category page
 		if (this.categoryID) {
 			this.tasks$ = this.tasksService.tasks$.pipe(
 				map((tasks) => tasks.filter((task) => task.categoryID === this.categoryID)),
@@ -45,7 +58,7 @@ export class TasksListComponent implements OnInit {
 		this.tasksService.removeTask(taskId);
 	}
 
-	onSetValue(task: TaskInterface): void {
+	onUpdateTask(task: TaskInterface): void {
 		if (task.title.length) {
 			this.tasksService.updateTask(task);
 		} else {

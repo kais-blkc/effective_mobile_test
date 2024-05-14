@@ -1,3 +1,5 @@
+import { UserInterface } from '../../share/user.interface';
+
 export interface TaskInterface {
 	id: number;
 	title: string;
@@ -5,4 +7,5 @@ export interface TaskInterface {
 	deadline?: string;
 	priority?: string;
 	categoryID?: number;
+	executers?: UserInterface[];
 }

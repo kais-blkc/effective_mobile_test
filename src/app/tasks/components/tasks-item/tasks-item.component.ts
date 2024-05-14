@@ -19,20 +19,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PriorityComponent } from '../share/priority/priority.component';
+import { ExecutorComponent } from '../share/executor/executor.component';
+import { UserInterface } from '../../../share/user.interface';
 
 @Component({
 	selector: 'tasks-item',
 	standalone: true,
 	imports: [
 		FormsModule,
-		MatIconModule,
-		MatButtonModule,
-		MatInputModule,
-		MatFormFieldModule,
 		MatCheckboxModule,
 		DeleteBtnComponent,
 		DeadlineComponent,
 		PriorityComponent,
+		ExecutorComponent,
 	],
 	providers: [provideNativeDateAdapter()],
 	templateUrl: './tasks-item.component.html',
@@ -43,19 +42,26 @@ export class TasksItemComponent implements AfterViewInit {
 	@Input() task: TaskInterface;
 	@Output() addTask: EventEmitter<void> = new EventEmitter<void>();
 	@Output() removeTask: EventEmitter<number> = new EventEmitter<number>();
-	@Output() setValue: EventEmitter<TaskInterface> = new EventEmitter<TaskInterface>();
+	@Output() updateTask: EventEmitter<TaskInterface> = new EventEmitter<TaskInterface>();
 	@ViewChild('titleInput') titleInputRef: ElementRef;
 
 	onDate(date: string): void {
 		this.task.deadline = date;
-		this.setValue.emit(this.task);
+		this.updateTask.emit(this.task);
 	}
 
 	onPriority(priority: string): void {
 		this.task.priority = priority;
-		this.setValue.emit(this.task);
+		this.updateTask.emit(this.task);
 	}
 
+	onExecuters(executers: UserInterface[]): void {
+		this.task.executers = executers;
+		this.updateTask.emit(this.task);
+	}
+
+	// Суета...
+	// Focus on input when add task
 	ngAfterViewInit(): void {
 		if (!this.task.title.length) {
 			// SetTimeout because else Angular throw error: NG0100 ExpressionChangedAfterItHasBeenCheckedError

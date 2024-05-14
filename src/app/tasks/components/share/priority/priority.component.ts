@@ -24,7 +24,5 @@ export class PriorityComponent {
 
 	public priorities: PriorityInterface[] = prioritiesPlaceholder;
 
-	constructor() {
-		console.log();
-	}
+	constructor() {}
 }

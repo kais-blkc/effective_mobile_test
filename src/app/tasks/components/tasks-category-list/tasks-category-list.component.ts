@@ -7,7 +7,6 @@ import { TasksCategoryComponent } from '../tasks-category/tasks-category.compone
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { TasksService } from '../../services/tasks.service';
-import { TasksItemComponent } from '../tasks-item/tasks-item.component';
 
 @Component({
 	selector: 'tasks-category-list',

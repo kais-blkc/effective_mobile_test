@@ -1,21 +1,18 @@
 <div class="tasks-item" [class.done]="task.status">
-	<!-- <div class="tasks-item__id">
-		{{ task.id }}
-	</div> -->
 	<div class="tasks-item__title">
 		<mat-checkbox
 			class="status-checkbox above-before-done"
 			[(ngModel)]="task.status"
-			(change)="setValue.emit(task)"
+			(change)="updateTask.emit(task)"
 			color="primary"
 		></mat-checkbox>
 
 		<input
 			type="text"
-			placeholder="Напишите название задачи"
+			placeholder="Название задачи"
 			[(ngModel)]="task.title"
 			(keyup.enter)="task.title.length ? addTask.emit() : ''"
-			(blur)="setValue.emit(task)"
+			(blur)="updateTask.emit(task)"
 			#titleInput
 		/>
 	</div>
@@ -23,6 +20,8 @@
 	<app-deadline [value]="this.task.deadline" (selected)="onDate($event)"></app-deadline>
 
 	<app-priority [value]="this.task.priority" (selected)="onPriority($event)"></app-priority>
+
+	<app-executor [value]="this.task.executers" (selected)="onExecuters($event)"></app-executor>
 
 	<app-delete-btn class="above-before-done" (click)="removeTask.emit(task.id)"></app-delete-btn>
 </div>

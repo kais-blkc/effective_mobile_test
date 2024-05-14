@@ -1,0 +1,8 @@
+<mat-form-field>
+	<mat-label>Исполнители</mat-label>
+	<mat-select multiple [(value)]="value" (selectionChange)="selected.emit(value)">
+		@for (user of users; track $index) {
+			<mat-option [value]="user.name">{{ user.name }}</mat-option>
+		}
+	</mat-select>
+</mat-form-field>

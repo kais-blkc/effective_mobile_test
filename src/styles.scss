@@ -55,6 +55,18 @@ body {
 		.tasks-item__title input {
 			background: #fff !important;
 		}
+		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+			background-color: #fff;
+		}
+	}
+
+	.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+		background-color: transparent;
+		transition: all 0.3s ease;
+	}
+
+	.mdc-line-ripple {
+		display: none !important;
 	}
 }
 

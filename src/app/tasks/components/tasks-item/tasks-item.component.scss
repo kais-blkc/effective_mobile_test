@@ -1,11 +1,15 @@
 .tasks-item {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(5, 1fr);
 	padding: 5px 0;
 	gap: 20px;
 	position: relative;
 
 	&__title {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
 		input {
 			background: transparent;
 			padding: 4px 10px;

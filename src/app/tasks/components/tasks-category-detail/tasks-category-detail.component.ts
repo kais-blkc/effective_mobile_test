@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TasksCategoryService } from '../../services/tasks-category.service';
 import { TasksCategoryInterface } from '../../types/tasks-category.interface';
 import { MatDividerModule } from '@angular/material/divider';
-import { Observable } from 'rxjs';
-import { TaskInterface } from '../../types/task.interface';
+import { Subscription } from 'rxjs';
 import { TasksListComponent } from '../tasks-list/tasks-list.component';
 import { CommonModule } from '@angular/common';
 
@@ -17,9 +16,8 @@ import { CommonModule } from '@angular/common';
 	styleUrl: './tasks-category-detail.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TasksCategoryDetailComponent implements OnInit {
-	public tasks$: Observable<TaskInterface[]> = new Observable<TaskInterface[]>();
-	public tasks: TaskInterface[];
+export class TasksCategoryDetailComponent implements OnInit, OnDestroy {
+	private routeSubscription: Subscription;
 	public category: TasksCategoryInterface;
 	public categoryID: number;
 
@@ -27,13 +25,17 @@ export class TasksCategoryDetailComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private categoryService: TasksCategoryService,
 	) {
-		this.activatedRoute.params.subscribe((params) => {
+		this.routeSubscription = this.activatedRoute.params.subscribe((params) => {
 			this.categoryID = +params['id'];
 		});
 	}
 
 	ngOnInit(): void {
 		this.getCurCategory();
+	}
+
+	ngOnDestroy(): void {
+		this.routeSubscription.unsubscribe();
 	}
 
 	getCurCategory() {
