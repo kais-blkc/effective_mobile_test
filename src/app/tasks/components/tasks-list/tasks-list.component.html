@@ -3,9 +3,9 @@
 	<button mat-flat-button color="primary" (click)="onAddTask()">Добавить задачу +</button>
 </div>
 
-<!-- @if (!dataSource.data.length) {
+@if (!dataSource.data.length) {
 	<p>Пока что пусто, добавьте задачу</p>
-} -->
+}
 
 <div class="tasks-list">
 	<table
@@ -74,9 +74,11 @@
 		<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 	</table>
 
-	<mat-divider></mat-divider>
-	<mat-paginator
-		[pageSizeOptions]="[10, 25, 100]"
-		aria-label="Количество задач на странице"
-	></mat-paginator>
+	<div [class.dispay-none]="dataSource.data.length < 1">
+		<mat-divider></mat-divider>
+		<mat-paginator
+			[pageSizeOptions]="[10, 25, 100]"
+			aria-label="Количество задач на странице"
+		></mat-paginator>
+	</div>
 </div>

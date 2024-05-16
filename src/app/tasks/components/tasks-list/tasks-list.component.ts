@@ -67,6 +67,7 @@ export class TasksListComponent implements OnInit, OnDestroy, AfterViewInit {
 	constructor(private tasksService: TasksService) {}
 
 	ngOnInit(): void {
+		this.dataSource = new MatTableDataSource(this.tasksService.tasks$.getValue());
 		this.getTasks();
 	}
 
@@ -81,20 +82,18 @@ export class TasksListComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	getTasks(): void {
 		this.tasksSubscription = this.tasksService.tasks$.subscribe((tasks) => {
-			console.log('table updated');
 			// prettier-ignore
-			const curTasks = this.categoryID
-				// if have category id return cur category tasks
-				? tasks.filter((task) => task.categoryID === this.categoryID)
-				// else return all tasks
-				:	tasks;
+			const curTasks = this.categoryID 
+				? tasks.filter((task) => task.categoryID === this.categoryID) 
+				: tasks;
 
-			this.dataSource = new MatTableDataSource(curTasks);
+			this.dataSource.data = curTasks;
 		});
 	}
 
 	onAddTask(): void {
 		this.tasksService.addTask({ id: 0, title: '', categoryID: this.categoryID, status: false });
+		this.goLastPaginatorPage();
 	}
 
 	onRemoveTask(taskId: number): void {
@@ -107,5 +106,11 @@ export class TasksListComponent implements OnInit, OnDestroy, AfterViewInit {
 		} else {
 			this.tasksService.removeTask(task.id);
 		}
+	}
+
+	goLastPaginatorPage() {
+		this.paginator.length = this.dataSource.data.length;
+		this.dataSource.paginator = this.paginator;
+		this.dataSource.paginator?.lastPage();
 	}
 }
