@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PriorityInterface, PriorityEnum } from '../../../types/priority.interface';
+import { TaskInterface } from '../../../types/task.interface';
 
 const prioritiesPlaceholder: PriorityInterface[] = [
 	{ color: 'green', value: PriorityEnum.green },
@@ -19,10 +20,13 @@ const prioritiesPlaceholder: PriorityInterface[] = [
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PriorityComponent {
-	@Input() value: string | undefined;
-	@Output() selected: EventEmitter<string> = new EventEmitter<string>();
+	@Input() task: TaskInterface;
+	@Output() selected: EventEmitter<TaskInterface> = new EventEmitter<TaskInterface>();
 
 	public priorities: PriorityInterface[] = prioritiesPlaceholder;
 
-	constructor() {}
+	onPriority(priority: string | undefined): void {
+		this.task.priority = priority;
+		this.selected.emit(this.task);
+	}
 }

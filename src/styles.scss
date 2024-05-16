@@ -9,15 +9,19 @@
 }
 
 :root {
+	--c-primary: #673ab7;
+	--c-accent: #ffd740;
+
 	--bg-white-gray: #fafafa;
 	--bg-primary: #673ab710;
 	--bg-accent: #ffd74020;
-	--bg-: #ffd74020;
 
 	--bg-green-015: #00800015;
 	--bg-yellow-015: #ff000015;
 	--bg-red-015: #ffff0015;
 	--bg-blue-015: #0000ff15;
+
+	--trans-03s: all 0.3s ease;
 }
 
 html,
@@ -47,7 +51,7 @@ body {
 }
 
 .tasks-item {
-	transition: all 0.3s ease;
+	transition: var(--trans-03s);
 
 	&:hover {
 		background: var(--bg-primary);
@@ -62,7 +66,7 @@ body {
 
 	.mdc-text-field--filled:not(.mdc-text-field--disabled) {
 		background-color: transparent;
-		transition: all 0.3s ease;
+		transition: var(--trans-03s);
 	}
 
 	.mdc-line-ripple {
@@ -104,25 +108,67 @@ app-delete-btn {
 	}
 }
 
-.mat-select {
-	&-green {
-		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-			background-color: var(--bg-green-015);
+.tasks-table {
+	--table-fields-bg: transparent;
+
+	.mat-select {
+		&-green {
+			.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+				background-color: var(--bg-green-015);
+			}
+		}
+		&-yellow {
+			.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+				background-color: var(--bg-yellow-015);
+			}
+		}
+		&-red {
+			.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+				background-color: var(--bg-red-015);
+			}
+		}
+		&-blue {
+			.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+				background-color: var(--bg-blue-015);
+			}
 		}
 	}
-	&-yellow {
-		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-			background-color: var(--bg-yellow-015);
+
+	.mat-mdc-form-field-subscript-wrapper {
+		display: none !important;
+	}
+
+	.mat-mdc-form-field-subscript-wrapper,
+	.mdc-line-ripple {
+		display: none !important;
+	}
+
+	.mat-mdc-text-field-wrapper,
+	.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+		background-color: var(--table-fields-bg);
+		transition: var(--trans-03s);
+		border-radius: 5px;
+
+		@media (max-width: 1000px) {
+			width: 150px;
+			font-size: 14px;
 		}
 	}
-	&-red {
-		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-			background-color: var(--bg-red-015);
+
+	.mat-mdc-row {
+		transition: var(--trans-03s);
+
+		&:hover {
+			background-color: var(--bg-primary);
+			--table-fields-bg: #fff;
 		}
 	}
-	&-blue {
-		.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-			background-color: var(--bg-blue-015);
-		}
+
+	.mat-mdc-form-field-focus-overlay {
+		transition: var(--trans-03s);
+	}
+
+	.mat-mdc-paginator-container {
+		background-color: transparent;
 	}
 }

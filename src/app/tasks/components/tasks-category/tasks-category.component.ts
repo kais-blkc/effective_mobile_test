@@ -38,7 +38,6 @@ import { DeleteBtnComponent } from '../share/delete-btn/delete-btn.component';
 	templateUrl: './tasks-category.component.html',
 	styleUrl: './tasks-category.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [TasksService],
 })
 export class TasksCategoryComponent implements OnInit, AfterViewInit {
 	@Input() category: TasksCategoryInterface;

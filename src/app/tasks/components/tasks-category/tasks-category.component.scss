@@ -27,6 +27,19 @@
 	&__task {
 		display: flex;
 		align-items: center;
+		gap: 10px;
+
+		p {
+			margin: 0;
+		}
+
+		mat-icon {
+			font-size: 14px;
+			font-weight: 600;
+			width: 14px;
+			height: 14px;
+			color: var(--c-primary);
+		}
 	}
 
 	&__title {

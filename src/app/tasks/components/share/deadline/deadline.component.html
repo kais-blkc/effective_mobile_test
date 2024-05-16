@@ -5,15 +5,15 @@
 			#dataInput
 			matInput
 			[matDatepicker]="dp3"
-			(dateChange)="selected.emit(value)"
-			[(ngModel)]="value"
+			(dateChange)="onDate(task.deadline)"
+			[(ngModel)]="task.deadline"
 			disabled
 		/>
 		<mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
 		<mat-datepicker #dp3 disabled="false"></mat-datepicker>
 	</mat-form-field>
 
-	@if (this.value) {
+	@if (this.task.deadline) {
 		<button class="btn btn-clear" (click)="onResetDate()">
 			<mat-icon
 				aria-hidden="false"

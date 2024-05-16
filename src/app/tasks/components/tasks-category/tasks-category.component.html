@@ -16,23 +16,19 @@
 	</mat-card-header>
 
 	<mat-card-content class="task-category">
-		@for (item of tasks$ | async; track $index) {
+		@for (task of tasks$ | async; track $index) {
 			@if ($index < 3) {
-				<div class="tci__task">
-					<mat-icon fontIcon="check_box_outline_blank" [style.display]="item.status ? 'none' : ''">
-					</mat-icon>
-					<mat-icon fontIcon="check_box" [style.display]="item.status ? '' : 'none'"></mat-icon>
-					{{ item.title }}
+				<div class="tci__task" [class.done]="task.status">
+					<p>
+						{{ task.title }}
+					</p>
+					<mat-icon fontIcon="check" [style.display]="task.status ? '' : 'none'"></mat-icon>
 				</div>
-			} @else {
-				<p>И так далее...</p>
 			}
 		}
 	</mat-card-content>
 
 	<mat-card-actions align="end">
-		<a [routerLink]="'tasks-category/' + category.id" mat-flat-button color="accent">
-			Перейти к проекту
-		</a>
+		<a [routerLink]="'tasks/' + category.id" mat-flat-button color="accent"> Перейти к проекту </a>
 	</mat-card-actions>
 </mat-card>

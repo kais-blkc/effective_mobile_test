@@ -1,0 +1,20 @@
+<!-- <input
+	type="text"
+	placeholder="Название задачи"
+	[(ngModel)]="task.title"
+	(keyup.enter)="task.title.length ? addTask.emit() : ''"
+	(blur)="updateTask.emit(task)"
+	#taskInput
+/> -->
+
+<mat-form-field>
+	<input
+		type="text"
+		placeholder="Название задачи"
+		[(ngModel)]="task.title"
+		(keyup.enter)="task.title.length ? addTask.emit() : ''"
+		(blur)="updateTask.emit(task)"
+		matInput
+		#taskInput
+	/>
+</mat-form-field>

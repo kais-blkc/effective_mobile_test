@@ -12,7 +12,6 @@ import { TasksService } from '../../services/tasks.service';
 	selector: 'tasks-category-list',
 	standalone: true,
 	imports: [CommonModule, TasksCategoryComponent, MatButtonModule, RouterModule],
-	providers: [TasksCategoryService, TasksService],
 	templateUrl: './tasks-category-list.component.html',
 	styleUrl: './tasks-category-list.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

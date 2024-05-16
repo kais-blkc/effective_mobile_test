@@ -3,23 +3,80 @@
 	<button mat-flat-button color="primary" (click)="onAddTask()">Добавить задачу +</button>
 </div>
 
-<tasks-filter-sort></tasks-filter-sort>
+<!-- @if (!dataSource.data.length) {
+	<p>Пока что пусто, добавьте задачу</p>
+} -->
 
-<div class="task-list">
-	<mat-list>
-		@for (item of tasks$ | async; track $index) {
-			<tasks-item
-				[task]="item"
-				(updateTask)="onUpdateTask($event)"
-				(addTask)="onAddTask()"
-				(removeTask)="onRemoveTask($event)"
-			></tasks-item>
+<div class="tasks-list">
+	<table
+		mat-table
+		*ngIf="dataSource.data.length > 0"
+		[dataSource]="dataSource"
+		class="tasks-table"
+		matSort
+	>
+		<!-- Status Column -->
+		<ng-container matColumnDef="status">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Статус</th>
+			<td mat-cell *matCellDef="let task">
+				<app-status-checkbox
+					[task]="task"
+					(updateTask)="onUpdateTask($event)"
+				></app-status-checkbox>
+			</td>
+		</ng-container>
 
-			@if (!$last) {
-				<mat-divider></mat-divider>
-			}
-		} @empty {
-			<p>Пока что пусто, добавьте задачу</p>
-		}
-	</mat-list>
+		<!-- Title Column -->
+		<ng-container matColumnDef="title">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Название</th>
+			<td mat-cell *matCellDef="let task">
+				<app-task-title
+					[task]="task"
+					(addTask)="onAddTask()"
+					(updateTask)="onUpdateTask($event)"
+				></app-task-title>
+			</td>
+		</ng-container>
+
+		<!-- Some Column -->
+		<ng-container matColumnDef="deadline">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Дедлайн</th>
+			<td mat-cell *matCellDef="let task">
+				<app-deadline [task]="task" (selected)="onUpdateTask($event)"></app-deadline>
+			</td>
+		</ng-container>
+
+		<!-- Some Column -->
+		<ng-container matColumnDef="priority">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Приоритет</th>
+			<td mat-cell *matCellDef="let task">
+				<app-priority [task]="task" (selected)="onUpdateTask($event)"></app-priority>
+			</td>
+		</ng-container>
+
+		<!-- Some Column -->
+		<ng-container matColumnDef="executers">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header>Исполнители</th>
+			<td mat-cell *matCellDef="let task">
+				<app-executor [task]="task" (selected)="onUpdateTask($event)"></app-executor>
+			</td>
+		</ng-container>
+
+		<!-- Some Column -->
+		<ng-container matColumnDef="delete">
+			<th mat-header-cell *matHeaderCellDef></th>
+			<td mat-cell *matCellDef="let task">
+				<app-delete-btn class="above-before-done" (click)="onRemoveTask(task.id)"></app-delete-btn>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+	</table>
+
+	<mat-divider></mat-divider>
+	<mat-paginator
+		[pageSizeOptions]="[10, 25, 100]"
+		aria-label="Количество задач на странице"
+	></mat-paginator>
 </div>

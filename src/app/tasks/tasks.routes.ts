@@ -1,8 +1,16 @@
 import { Routes } from '@angular/router';
-import { TasksListComponent } from './components/tasks-list/tasks-list.component';
-import { TasksCategoryDetailComponent } from './components/tasks-category-detail/tasks-category-detail.component';
 
 export const tasksRoutes: Routes = [
-	{ path: 'tasks', component: TasksListComponent },
-	{ path: 'tasks-category/:id', component: TasksCategoryDetailComponent },
+	{
+		path: 'tasks',
+		loadComponent: () =>
+			import('./components/tasks-all/tasks-all.component').then((m) => m.AllTasksComponent),
+	},
+	{
+		path: 'tasks/:id',
+		loadComponent: () =>
+			import('./components/tasks-category-detail/tasks-category-detail.component').then(
+				(m) => m.TasksCategoryDetailComponent,
+			),
+	},
 ];

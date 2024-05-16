@@ -1,12 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TaskInterface } from '../types/task.interface';
 import { Injectable } from '@angular/core';
-
-const placeholderTasks: TaskInterface[] = [
-	{ id: 0, title: 'one', status: false },
-	{ id: 1, title: 'two', status: false },
-	{ id: 2, title: 'three', status: false },
-];
+import { placeholderTasks } from '../mok.data';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {
@@ -25,18 +20,15 @@ export class TasksService {
 	}
 
 	getTasks(): void {
-		const JSONTasks = localStorage.getItem('tasks');
+		const JSONLocalTasks = localStorage.getItem('tasks');
 
-		if (JSONTasks) {
-			const localTasks: TaskInterface[] = JSON.parse(JSONTasks);
+		if (JSONLocalTasks) {
+			const localTasks: TaskInterface[] = JSON.parse(JSONLocalTasks);
 			this._tasks = [...localTasks];
-			this.tasks$.next(localTasks);
-			this.setTasksIdFromLocalStorage();
 		}
-	}
 
-	getTasksByCategoryId(catID: number) {
-		return this._tasks.filter((task) => task.categoryID == catID);
+		this.tasks$.next(this._tasks);
+		this.setTasksIdFromLocalStorage();
 	}
 
 	removeTaskByCategoryId(catID: number): void {

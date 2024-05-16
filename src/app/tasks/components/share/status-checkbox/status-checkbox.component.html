@@ -1,0 +1,6 @@
+<mat-checkbox
+	class="status-checkbox above-before-done"
+	[(ngModel)]="task.status"
+	(change)="updateTask.emit(task)"
+	color="primary"
+></mat-checkbox>

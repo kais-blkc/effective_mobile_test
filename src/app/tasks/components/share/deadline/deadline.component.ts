@@ -6,6 +6,8 @@ import { DeleteBtnComponent } from '../delete-btn/delete-btn.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
+import { TaskInterface } from '../../../types/task.interface';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
 	selector: 'app-deadline',
@@ -23,15 +25,21 @@ import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
 	templateUrl: './deadline.component.html',
 	styleUrl: './deadline.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [],
+	providers: [provideNativeDateAdapter()],
 })
 export class DeadlineComponent {
-	@Input() value: string | undefined;
-	@Output() selected: EventEmitter<string> = new EventEmitter<string>();
+	@Input() task: TaskInterface;
+	@Output() selected: EventEmitter<TaskInterface> = new EventEmitter<TaskInterface>();
+
 	public date: string;
 
-	onResetDate() {
-		this.value = '';
-		this.selected.emit(this.value);
+	onResetDate(): void {
+		this.task.deadline = '';
+		this.selected.emit(this.task);
+	}
+
+	onDate(deadline: string | undefined): void {
+		this.task.deadline = deadline;
+		this.selected.emit(this.task);
 	}
 }

@@ -3,12 +3,7 @@ import { TaskInterface } from '../types/task.interface';
 import { TasksCategoryInterface } from '../types/tasks-category.interface';
 import { TasksService } from './tasks.service';
 import { Injectable } from '@angular/core';
-
-const placeholderCats: TasksCategoryInterface[] = [
-	{ id: 0, title: '1 cat' },
-	{ id: 1, title: '2 cat' },
-	{ id: 2, title: '3 cat' },
-];
+import { placeholderCats } from '../mok.data';
 
 @Injectable({ providedIn: 'root' })
 export class TasksCategoryService {
@@ -35,9 +30,10 @@ export class TasksCategoryService {
 		if (JSONCats) {
 			const localCats: TaskInterface[] = JSON.parse(JSONCats);
 			this._categories = [...localCats];
-			this.categories$.next(localCats);
-			this.setCategoriesIdFromLocalStorage();
 		}
+
+		this.categories$.next(this._categories);
+		this.setCategoriesIdFromLocalStorage();
 	}
 
 	getCategoryById(catId: number) {

@@ -1,6 +1,6 @@
 <mat-form-field>
 	<mat-label>Исполнители</mat-label>
-	<mat-select multiple [(value)]="value" (selectionChange)="selected.emit(value)">
+	<mat-select multiple [(value)]="task.executers" (selectionChange)="onExecuters(task.executers)">
 		@for (user of users; track $index) {
 			<mat-option [value]="user.name">{{ user.name }}</mat-option>
 		}

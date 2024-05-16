@@ -4,3 +4,23 @@
 	justify-content: space-between;
 	gap: 10px;
 }
+
+.tasks-table {
+	background-color: transparent;
+
+	td {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		@media (max-width: 1000px) {
+			padding: 5px;
+		}
+	}
+}
+
+.tasks-list {
+	overflow: auto;
+
+	.mat-mdc-paginator {
+		background-color: transparent;
+	}
+}
