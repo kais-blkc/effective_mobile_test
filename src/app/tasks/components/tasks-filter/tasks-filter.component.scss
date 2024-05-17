@@ -1,0 +1,21 @@
+.tasks-filter {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 20px;
+
+	padding: 20px;
+	background-color: var(--bg-primary);
+
+	@media (max-width: 1000px) {
+		flex-direction: column;
+	}
+
+	h3 {
+		margin: 0;
+		margin-right: auto;
+		@media (max-width: 1000px) {
+			margin-right: 0;
+		}
+	}
+}

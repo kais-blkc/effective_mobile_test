@@ -4,7 +4,11 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { tasksRoutes } from './tasks/tasks.routes';
 
 export const routes: Routes = [
-	{ path: '', component: HomeComponent },
+	{ path: '', loadComponent: () => import('./home/home.component').then((m) => m.HomeComponent) },
 	...tasksRoutes,
-	{ path: '**', component: ErrorPageComponent },
+	{
+		path: '**',
+		loadComponent: () =>
+			import('./error-page/error-page.component').then((m) => m.ErrorPageComponent),
+	},
 ];

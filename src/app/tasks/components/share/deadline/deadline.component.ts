@@ -31,8 +31,6 @@ export class DeadlineComponent {
 	@Input() task: TaskInterface;
 	@Output() selected: EventEmitter<TaskInterface> = new EventEmitter<TaskInterface>();
 
-	public date: string;
-
 	onResetDate(): void {
 		this.task.deadline = '';
 		this.selected.emit(this.task);

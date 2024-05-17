@@ -134,10 +134,6 @@ app-delete-btn {
 		}
 	}
 
-	.mat-mdc-form-field-subscript-wrapper {
-		display: none !important;
-	}
-
 	.mat-mdc-form-field-subscript-wrapper,
 	.mdc-line-ripple {
 		display: none !important;
@@ -167,12 +163,35 @@ app-delete-btn {
 	.mat-mdc-form-field-focus-overlay {
 		transition: var(--trans-03s);
 	}
+}
 
-	.mat-mdc-paginator-container {
-		background-color: transparent;
+.tasks-filter {
+	.mat-mdc-form-field-subscript-wrapper,
+	.mdc-line-ripple {
+		display: none !important;
 	}
 }
 
 .dispay-none {
 	display: none;
+}
+
+body .mat-mdc-form-field-focus-overlay {
+	transition: var(--trans-03s);
+}
+body .mat-mdc-text-field-wrapper,
+body .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+	transition: var(--trans-03s);
+	border-radius: 5px;
+
+	@media (max-width: 1000px) {
+		font-size: 14px;
+		width: 100%;
+	}
+}
+
+body .table-paginator {
+	.mat-mdc-paginator {
+		background-color: transparent;
+	}
 }

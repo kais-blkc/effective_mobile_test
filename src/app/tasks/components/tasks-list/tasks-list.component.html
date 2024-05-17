@@ -3,6 +3,8 @@
 	<button mat-flat-button color="primary" (click)="onAddTask()">Добавить задачу +</button>
 </div>
 
+<app-tasks-filter (filter)="onFilter($event)"></app-tasks-filter>
+
 @if (!dataSource.data.length) {
 	<p>Пока что пусто, добавьте задачу</p>
 }
@@ -73,7 +75,9 @@
 		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 		<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 	</table>
+</div>
 
+<div class="table-paginator">
 	<div [class.dispay-none]="dataSource.data.length < 1">
 		<mat-divider></mat-divider>
 		<mat-paginator

@@ -1,0 +1,16 @@
+<div class="tasks-filter">
+	<h3>Фильтр</h3>
+
+	<app-deadline
+		[task]="task"
+		(selected)="onSelected($event, filterNameEnum.deadline)"
+	></app-deadline>
+	<app-priority
+		[task]="task"
+		(selected)="onSelected($event, filterNameEnum.priority)"
+	></app-priority>
+	<app-executor
+		[task]="task"
+		(selected)="onSelected($event, filterNameEnum.executers)"
+	></app-executor>
+</div>

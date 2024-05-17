@@ -31,6 +31,10 @@ export class TasksService {
 		this.setTasksIdFromLocalStorage();
 	}
 
+	getTasksByCategoryID(categoryID: number): TaskInterface[] {
+		return this._tasks.filter((task) => task.categoryID === categoryID);
+	}
+
 	removeTaskByCategoryId(catID: number): void {
 		this._tasks = this._tasks.filter((task) => task.categoryID !== catID);
 		this.tasks$.next(this._tasks);

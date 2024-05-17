@@ -7,34 +7,40 @@ import {
 	OnInit,
 	ViewChild,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Observable, Subscription } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { TaskInterface } from '../../types/task.interface';
 import { TasksService } from '../../services/tasks.service';
-import { Observable, Subscription, map } from 'rxjs';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { StatusCheckboxComponent } from '../share/status-checkbox/status-checkbox.component';
-import { DeadlineComponent } from '../share/deadline/deadline.component';
-import { TaskTitleComponent } from '../share/task-title/task-title.component';
-import { PriorityComponent } from '../share/priority/priority.component';
-import { ExecutorComponent } from '../share/executor/executor.component';
-import { CommonModule } from '@angular/common';
-import { DeleteBtnComponent } from '../share/delete-btn/delete-btn.component';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { ExecutorComponent } from '../share/executor/executor.component';
+import { PriorityComponent } from '../share/priority/priority.component';
+import { DeadlineComponent } from '../share/deadline/deadline.component';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { TaskTitleComponent } from '../share/task-title/task-title.component';
+import { DeleteBtnComponent } from '../share/delete-btn/delete-btn.component';
+import { TasksFilterComponent } from '../tasks-filter/tasks-filter.component';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { StatusCheckboxComponent } from '../share/status-checkbox/status-checkbox.component';
+import {
+	FilterNameEnum,
+	FilterParamsInterface,
+	FilterPropsInterface,
+} from '../../types/filter.interface';
 
 @Component({
 	selector: 'tasks-list',
 	standalone: true,
 	imports: [
 		CommonModule,
+		MatSort,
+		MatPaginator,
+		MatSortModule,
 		MatTableModule,
 		MatButtonModule,
-		MatPaginator,
-		MatPaginatorModule,
 		MatDividerModule,
-		MatSort,
-		MatSortModule,
+		MatPaginatorModule,
 		StatusCheckboxComponent,
 		DeadlineComponent,
 		TaskTitleComponent,
@@ -42,6 +48,7 @@ import { MatDividerModule } from '@angular/material/divider';
 		PriorityComponent,
 		ExecutorComponent,
 		DeleteBtnComponent,
+		TasksFilterComponent,
 	],
 	templateUrl: './tasks-list.component.html',
 	styleUrl: './tasks-list.component.scss',
@@ -49,9 +56,11 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class TasksListComponent implements OnInit, OnDestroy, AfterViewInit {
 	@Input() categoryID: number;
-	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
+	@ViewChild(MatPaginator) paginator: MatPaginator;
 
+	private tasksSubscription: Subscription;
+	private filteredTasks: TaskInterface[];
 	public tasks$: Observable<TaskInterface[]>;
 	public dataSource: MatTableDataSource<TaskInterface>;
 	public displayedColumns: string[] = [
@@ -62,7 +71,6 @@ export class TasksListComponent implements OnInit, OnDestroy, AfterViewInit {
 		'executers',
 		'delete',
 	];
-	private tasksSubscription: Subscription;
 
 	constructor(private tasksService: TasksService) {}
 
@@ -82,13 +90,23 @@ export class TasksListComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	getTasks(): void {
 		this.tasksSubscription = this.tasksService.tasks$.subscribe((tasks) => {
-			// prettier-ignore
-			const curTasks = this.categoryID 
-				? tasks.filter((task) => task.categoryID === this.categoryID) 
-				: tasks;
-
-			this.dataSource.data = curTasks;
+			if (this.categoryID) {
+				this.dataSource.data = this.tasksService.getTasksByCategoryID(this.categoryID);
+			} else {
+				this.dataSource.data = tasks;
+			}
 		});
+	}
+
+	onFilter(filterParams: FilterParamsInterface[]): void {
+		let result = this.tasksService.tasks$.getValue();
+
+		filterParams.forEach((filter) => {
+			if (!filter.filterValue || filter.filterValue === '[]') return;
+			result = result.filter((f) => JSON.stringify(f[filter.filterName]) === filter.filterValue);
+		});
+
+		this.dataSource.data = result;
 	}
 
 	onAddTask(): void {
