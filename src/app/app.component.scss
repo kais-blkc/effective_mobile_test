@@ -7,8 +7,9 @@
 }
 
 nav {
+	width: 100%;
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	gap: 5px;
 
 	a {
@@ -20,4 +21,38 @@ nav {
 
 .container {
 	padding: 50px 25px;
+}
+
+.sidebar {
+	nav {
+		flex-direction: column;
+	}
+
+	@media (max-width: 1000px) {
+		display: none;
+	}
+}
+
+.toolbar-mob {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 5;
+	background-color: var(--bg-primary);
+	backdrop-filter: blur(10px);
+
+	.mat-toolbar {
+		background-color: transparent;
+	}
+
+	@media (min-width: 1000px) {
+		display: none;
+	}
+}
+
+.drawer-content {
+	@media (max-width: 1000px) {
+		padding-bottom: 64px;
+	}
 }

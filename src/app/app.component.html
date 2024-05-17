@@ -1,14 +1,32 @@
-<mat-drawer-container class="example-container">
-	<mat-drawer mode="side" opened>
+<mat-drawer-container>
+	<mat-drawer mode="side" class="sidebar" opened>
 		<nav>
-			<a mat-flat-button routerLink="/">Главная</a>
+			<a mat-flat-button routerLink="/">
+				<mat-icon fontIcon="home"></mat-icon>
+				<span> Главная </span>
+			</a>
 			<a mat-flat-button routerLink="/tasks">Все задачи</a>
 		</nav>
 	</mat-drawer>
 
-	<mat-drawer-content>
+	<mat-drawer-content class="drawer-content">
 		<div class="container">
 			<router-outlet></router-outlet>
 		</div>
 	</mat-drawer-content>
 </mat-drawer-container>
+
+<div class="toolbar-mob">
+	<mat-toolbar>
+		<nav>
+			<a mat-flat-button routerLink="/">
+				<mat-icon fontIcon="home"></mat-icon>
+				<span> Главная </span>
+			</a>
+			<a mat-flat-button routerLink="/tasks">
+				<mat-icon fontIcon="list"></mat-icon>
+				<span> Все задачи </span>
+			</a>
+		</nav>
+	</mat-toolbar>
+</div>
