@@ -5,12 +5,13 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
+	OnDestroy,
 	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
 import { TaskInterface } from '../../types/task.interface';
-import { Observable, filter, map } from 'rxjs';
+import { Observable, Subscription, filter, map } from 'rxjs';
 import { TasksService } from '../../services/tasks.service';
 import { CommonModule } from '@angular/common';
 import { NgPipesModule } from 'ngx-pipes';
@@ -39,7 +40,7 @@ import { DeleteBtnComponent } from '../share/delete-btn/delete-btn.component';
 	styleUrl: './tasks-category.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TasksCategoryComponent implements OnInit, AfterViewInit {
+export class TasksCategoryComponent implements OnInit, AfterViewInit, OnDestroy {
 	@Input() category: TasksCategoryInterface;
 	@Output() addCategory: EventEmitter<void> = new EventEmitter<void>();
 	@Output() removeCategory: EventEmitter<number> = new EventEmitter<number>();
@@ -47,14 +48,19 @@ export class TasksCategoryComponent implements OnInit, AfterViewInit {
 		new EventEmitter<TasksCategoryInterface>();
 	@ViewChild('categoryInputRef') categoryInputRef: ElementRef;
 
-	public tasks$: Observable<TaskInterface[]>;
+	public tasks: TaskInterface[];
+	public tasksSubscription: Subscription;
 
 	constructor(private tasksService: TasksService) {}
 
 	ngOnInit(): void {
-		this.tasks$ = this.tasksService.tasks$.pipe(
-			map((tasks) => tasks.filter((task) => task.categoryID === this.category.id)),
-		);
+		this.tasksSubscription = this.tasksService.tasks$.subscribe((tasks) => {
+			this.tasks = this.tasksService.getTasksByCategoryID(this.category.id);
+		});
+	}
+
+	ngOnDestroy(): void {
+		this.tasksSubscription.unsubscribe();
 	}
 
 	ngAfterViewInit(): void {

@@ -28,16 +28,16 @@ export class TasksCategoryListComponent implements OnInit {
 		this.categories$ = this.categoryServices.categories$;
 	}
 
-	onAddCategory() {
+	onAddCategory(): void {
 		this.categoryServices.addCategory({ id: 0, title: '' });
 	}
 
-	onRemoveCategory(catId: number) {
+	onRemoveCategory(catId: number): void {
 		this.categoryServices.removeCategory(catId);
 		this.tasksService.removeTaskByCategoryId(catId);
 	}
 
-	onUpdateCategory(cat: TasksCategoryInterface) {
+	onUpdateCategory(cat: TasksCategoryInterface): void {
 		if (cat.title.length) {
 			this.categoryServices.updateCategory(cat);
 		} else {

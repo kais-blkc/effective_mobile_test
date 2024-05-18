@@ -99,10 +99,17 @@ export class TasksListComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	onFilter(filterParams: FilterParamsInterface[]): void {
-		let result = this.tasksService.tasks$.getValue();
+		let result: TaskInterface[];
+
+		if (this.categoryID) {
+			result = this.tasksService.getTasksByCategoryID(this.categoryID);
+		} else {
+			result = this.tasksService.tasks$.getValue();
+		}
 
 		filterParams.forEach((filter) => {
 			if (!filter.filterValue || filter.filterValue === '[]') return;
+			// filter compare: string === string
 			result = result.filter((f) => JSON.stringify(f[filter.filterName]) === filter.filterValue);
 		});
 
@@ -126,7 +133,7 @@ export class TasksListComponent implements OnInit, OnDestroy, AfterViewInit {
 		}
 	}
 
-	goLastPaginatorPage() {
+	goLastPaginatorPage(): void {
 		this.paginator.length = this.dataSource.data.length;
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.paginator?.lastPage();

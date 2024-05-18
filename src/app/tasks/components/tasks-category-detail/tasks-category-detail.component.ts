@@ -48,11 +48,11 @@ export class TasksCategoryDetailComponent implements OnInit, OnDestroy {
 		this.routeSubscription.unsubscribe();
 	}
 
-	getCurCategory() {
+	getCurCategory(): void {
 		this.category = this.categoryService.getCategoryById(this.categoryID)!;
 	}
 
-	onRemoveCategory(categoryID: number) {
+	onRemoveCategory(categoryID: number): void {
 		this.tasksService.removeTaskByCategoryId(categoryID);
 		this.categoryService.removeCategory(categoryID);
 		this.router.navigate(['/']);

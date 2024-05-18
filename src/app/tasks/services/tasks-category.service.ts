@@ -24,7 +24,7 @@ export class TasksCategoryService {
 		});
 	}
 
-	getCategories() {
+	getCategories(): void {
 		const JSONCats = localStorage.getItem('categories');
 
 		if (JSONCats) {
@@ -36,13 +36,13 @@ export class TasksCategoryService {
 		this.setCategoriesIdFromLocalStorage();
 	}
 
-	getCategoryById(catId: number) {
+	getCategoryById(catId: number): TasksCategoryInterface | undefined {
 		return this._categories.find((cat) => {
 			return cat.id === catId;
 		});
 	}
 
-	addCategory(category: TasksCategoryInterface) {
+	addCategory(category: TasksCategoryInterface): void {
 		category.id = ++this._categoriesId;
 		this._categories = [...this._categories, category];
 		this.categories$.next(this._categories);
@@ -50,12 +50,12 @@ export class TasksCategoryService {
 		this.saveCategoriesIdInLocalStorage(category.id);
 	}
 
-	removeCategory(catId: number) {
+	removeCategory(catId: number): void {
 		this._categories = this._categories.filter((cat) => cat.id !== catId);
 		this.categories$.next(this._categories);
 	}
 
-	updateCategory(updatedCat: TasksCategoryInterface) {
+	updateCategory(updatedCat: TasksCategoryInterface): void {
 		this._categories.forEach((cat, index) => {
 			if (cat.title === updatedCat.title) {
 				this._categories[index] = updatedCat;
